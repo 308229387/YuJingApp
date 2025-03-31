@@ -14,7 +14,8 @@ class ItemAdapter(private val items: List<Item>) :
     // ViewHolder 负责绑定布局中的视图
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-        val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
+        val tvTime: TextView = itemView.findViewById(R.id.tvTime)
+        val tvLocation: TextView = itemView.findViewById(R.id.tvLocation)
     }
 
     // 创建 ViewHolder
@@ -28,7 +29,8 @@ class ItemAdapter(private val items: List<Item>) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = items[position]
         holder.tvTitle.text = item.title
-        holder.tvDescription.text = item.description
+        holder.tvTime.text = item.time
+        holder.tvLocation.text = item.location
     }
 
     // 返回列表项总数

@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/tvImage"
+        android:layout_width="112dp"
+        android:layout_height="70dp"
+        android:importantForAccessibility="no" />
 
-    <TextView
-        android:id="@+id/tvDescription"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"/>
+        android:paddingStart="20dp"
+        android:layout_height="70dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="行为冲突预警"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_below="@id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2025-12-12 12:22:22"/>
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="教学楼三层平台西北角摄像头"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

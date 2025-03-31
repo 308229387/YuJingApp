@@ -19,9 +19,9 @@ class WarningListActivity : ComponentActivity() {
 
         // 1. 准备测试数据
         val itemList = listOf(
-            Item(1, "标题1", "描述1"),
-            Item(2, "标题2", "描述2"),
-            Item(3, "标题3", "描述3")
+            Item("标题1", "2025-12-12 12:22:22","北京市海淀区",""),
+            Item("标题1", "2025-12-12 12:22:22","北京市海淀区",""),
+            Item("标题1", "2025-12-12 12:22:22","北京市海淀区","")
         )
 
         recyclerView.adapter = ItemAdapter(itemList)
