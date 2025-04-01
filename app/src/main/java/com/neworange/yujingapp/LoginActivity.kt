@@ -7,24 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.telephony.TelephonyManager
-import android.text.Editable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextWatcher
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -34,8 +23,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.neworange.yujingapp.net.NetworkResult
 import com.neworange.yujingapp.viewModel.UserViewModel
 
@@ -62,6 +49,7 @@ class LoginActivity : ComponentActivity() {
         viewModel.userInfoLiveData.observe(this) { result ->
             when (result) {
                 is NetworkResult.Success -> {
+                    Toast.makeText(this,result.data.token,Toast.LENGTH_SHORT).show()
                     // 请求成功，更新 UI
                     val user = result.data
                     val intent = Intent(this, WarningListActivity::class.java)
