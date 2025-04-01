@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="650dp"
+    android:background="@drawable/bg_bottom_dialog_round"
+    android:orientation="vertical"
+    android:padding="24dp"> <!-- 圆角背景 -->
+
+    <!-- 手机号输入框 -->
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F2F8FF"
+        android:hint="手机号"
+        android:inputType="phone" />
+
+    <!-- 密码输入框 -->
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F2F8FF"
+        android:layout_marginTop="16dp"
+        android:hint="密码"
+        android:inputType="textPassword" />
+
+    <!-- 忘记密码 -->
+    <TextView
+        android:id="@+id/tv_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="忘记密码？"
+        android:textColor="@color/blue" />
+
+    <!-- 登录按钮 -->
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/blue"
+        android:text="登录"
+        android:textColor="@color/white" />
+
+    <!-- 协议勾选 -->
+    <CheckBox
+        android:id="@+id/cb_agree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="我已同意使用协议" />
+
+</LinearLayout>

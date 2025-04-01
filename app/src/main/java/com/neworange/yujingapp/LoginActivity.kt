@@ -7,12 +7,24 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.telephony.TelephonyManager
+import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextWatcher
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -20,6 +32,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.neworange.yujingapp.net.NetworkResult
 import com.neworange.yujingapp.viewModel.UserViewModel
 
@@ -68,8 +84,9 @@ class LoginActivity : ComponentActivity() {
 
         loginBtn = findViewById(R.id.login_btn)
         loginBtn.setOnClickListener { v: View? ->
-//            viewModel.fetchUserInfo("18519266665")
-            checkPermissions()
+            viewModel.fetchUserInfo("18519266665")
+//            checkPermissions()
+//            showLoginDialog(this)
         }
     }
 
@@ -161,4 +178,21 @@ class LoginActivity : ComponentActivity() {
             Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun showLoginDialog(context: Context) {
+// 创建弹窗对象
+        val dialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme) // 使用自定义主题
+
+// 设置布局并强制展开
+        dialog.setContentView(R.layout.dialog_login_bottom)
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+// ⭐ 修复圆角的核心代码：移除默认背景叠加
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.behavior.isFitToContents = true // 确保内容填充高度
+
+// 显示弹窗
+        dialog.show()
+    }
+
 }
