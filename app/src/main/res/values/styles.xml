@@ -8,4 +8,9 @@
         <item name="android:background">@android:color/transparent</item> <!-- 关键：禁用系统背景 -->
     </style>
 
+    <style name="AppStartTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@mipmap/back_image</item>
+    </style>
+
 </resources>

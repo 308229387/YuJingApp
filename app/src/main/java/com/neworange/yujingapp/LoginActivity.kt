@@ -12,8 +12,9 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.telephony.TelephonyManager
-import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -24,12 +25,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.neworange.yujingapp.net.NetworkResult
+import com.neworange.yujingapp.utils.SPManager
 import com.neworange.yujingapp.viewModel.UserViewModel
 
 class LoginActivity : ComponentActivity() {
     private var backPressedTime: Long = 0
     lateinit var loginBtn: TextView
     lateinit var viewModel: UserViewModel
+    var phone: String = ""
+
 
     private companion object {
         const val REQUEST_CODE_PHONE_PERMISSION = 1001
@@ -41,17 +45,18 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-
-        // 检查权限状态
-        var phone: String = ""
-
         viewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        SPManager.init(this)
+
+        checkPermissions()
+        // 检查权限状态
         viewModel.userInfoLiveData.observe(this) { result ->
             when (result) {
                 is NetworkResult.Success -> {
-                    Toast.makeText(this,result.data.token,Toast.LENGTH_SHORT).show()
-                    // 请求成功，更新 UI
-                    val user = result.data
+                    Toast.makeText(this, result.data.token, Toast.LENGTH_SHORT).show()
+
+                    SPManager.put("code", result.data.code)
+
                     val intent = Intent(this, WarningListActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -72,9 +77,10 @@ class LoginActivity : ComponentActivity() {
 
         loginBtn = findViewById(R.id.login_btn)
         loginBtn.setOnClickListener { v: View? ->
+//            if (phone.isNotBlank()) {
+//                viewModel.fetchUserInfo(phone)
+//            }
             viewModel.fetchUserInfo("18519266665")
-//            checkPermissions()
-//            showLoginDialog(this)
         }
     }
 
@@ -132,11 +138,24 @@ class LoginActivity : ComponentActivity() {
             "权限未正常授予"
         }
 
-        Toast.makeText(
-            this,
-            "当前设备号码：${phoneNumber.takeIf { it.isNotBlank() } ?: "空值"}",
-            Toast.LENGTH_LONG
-        ).show()
+        if (phoneNumber.isBlank()) {
+            showLoginDialog(this)
+        } else {
+            phone = formatPhoneNumber(phoneNumber)
+        }
+
+    }
+
+    fun formatPhoneNumber(phoneNumber: String): String {
+        // 第一步：去除所有非数字字符
+        val cleaned = phoneNumber.replace(Regex("[^\\d]"), "")
+
+        // 第二步：处理中国区号（+86 或 86 开头）
+        return when {
+            cleaned.startsWith("86") && cleaned.length > 2 -> cleaned.substring(2)
+            cleaned.startsWith("0086") && cleaned.length > 4 -> cleaned.substring(4)
+            else -> cleaned
+        }
     }
 
 
@@ -167,19 +186,36 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
+
     fun showLoginDialog(context: Context) {
-// 创建弹窗对象
-        val dialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme) // 使用自定义主题
+        val dialog = BottomSheetDialog(context, R.style.BottomSheetDialogTheme).apply {
+            // 设置布局
+            setContentView(R.layout.dialog_login_bottom)
 
-// 设置布局并强制展开
-        dialog.setContentView(R.layout.dialog_login_bottom)
-        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            // 获取布局中的控件（必须通过dialog对象访问）
+            val btnLogin = findViewById<Button>(R.id.btn_login)
+            val etPhone = findViewById<EditText>(R.id.et_phone)
+            val etPassword = findViewById<EditText>(R.id.et_password)
 
-// ⭐ 修复圆角的核心代码：移除默认背景叠加
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.behavior.isFitToContents = true // 确保内容填充高度
+            // 处理登录按钮点击
+            btnLogin?.setOnClickListener {
+                // 输入验证
+                val phone = etPhone?.text?.toString()?.trim() ?: ""
+                val password = etPassword?.text?.toString()?.trim() ?: ""
 
-// 显示弹窗
+                viewModel.loginWithPassword(phone, password)
+
+            }
+
+            // 弹窗样式配置
+            behavior.apply {
+                state = BottomSheetBehavior.STATE_EXPANDED
+                isFitToContents = true
+                skipCollapsed = true
+            }
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+
         dialog.show()
     }
 

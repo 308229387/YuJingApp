@@ -18,6 +18,6 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish() // 关闭当前 Activity（可选，根据需求决定）
-        }, 2000) // 2000 毫秒 = 2 秒
+        }, 1500) // 2000 毫秒 = 2 秒
     }
 }
