@@ -2,29 +2,18 @@ package com.neworange.yujingapp.net
 
 import com.neworange.yujingapp.data.UserInfoResponse
 
-class UserRepository {
+class UserRepository : BaseRepository() {
     private val apiService = RetrofitClient.createService(ApiService::class.java)
 
     suspend fun fetchUserInfo(phone: String): NetworkResult<UserInfoResponse> {
-        return try {
-            val response = apiService.getUserInfo(phone)
-            when {
-                response.status == 0 && response.code == 0 -> {
-                    NetworkResult.Success(response.data) // 正确获取嵌套的data
-                }
-                else -> {
-                    NetworkResult.Error(
-                        message = response.msg,
-                        code = response.code
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            NetworkResult.Error(
-                message = e.message ?: "请求失败",
-                code = -1
-            )
+        return executeRequest {
+            apiService.getUserInfo(phone)
         }
     }
 
+//    // 新增其他接口（只需1行核心代码）
+//    suspend fun updateProfile(avatar: String): NetworkResult<ProfileResponse> {
+//        return executeRequest { apiService.updateProfile(avatar) }
+//    }
 }
+
