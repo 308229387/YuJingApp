@@ -7,6 +7,7 @@ data class UserInfoResponse(
     val nickname: String,
     val code: String,
     val name: String,
+    val jpushId: String,
     val headImgUrl: String,
     val unionId: String,
     val sessionKey: String,

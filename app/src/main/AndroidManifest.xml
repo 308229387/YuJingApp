@@ -41,6 +41,16 @@
             </intent-filter>
         </service>
 
+        <receiver
+            android:name=".service.PushMessageService"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVER_MESSAGE" />
+                <category android:name="com.neworange.yujingapp" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.telephony.TelephonyManager
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -22,6 +23,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import cn.jpush.android.api.JPushInterface
+import cn.jpush.android.api.TagAliasCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.neworange.yujingapp.net.NetworkResult
@@ -54,8 +57,16 @@ class LoginActivity : ComponentActivity() {
             when (result) {
                 is NetworkResult.Success -> {
                     Toast.makeText(this, result.data.token, Toast.LENGTH_SHORT).show()
-
                     SPManager.put("code", result.data.code)
+
+                    // 用户登录成功后调用
+                    val sequence = (System.currentTimeMillis() % 10000).toInt() // 生成唯一请求序列号
+                    JPushInterface.setAlias(
+                        this,
+                        sequence,
+                        result.data.jpushId
+                    )
+
 
                     val intent = Intent(this, WarningListActivity::class.java)
                     startActivity(intent)
@@ -106,7 +117,6 @@ class LoginActivity : ComponentActivity() {
             showPhoneNumberToast() // 已授权时直接获取
         }
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
