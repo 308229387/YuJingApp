@@ -32,6 +32,7 @@
         </activity>
         <activity android:name="LoginActivity" />
         <activity android:name="WarningListActivity" />
+        <activity android:name="WarningDetailActivity" />
 
         <service android:name=".service.JPushService"
             android:enabled="true"

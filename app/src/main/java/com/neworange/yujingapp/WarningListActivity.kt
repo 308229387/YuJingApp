@@ -16,7 +16,6 @@ import com.neworange.yujingapp.viewModel.WarningViewModel
 
 class WarningListActivity : ComponentActivity() {
     private lateinit var viewModel: WarningViewModel
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ItemAdapter
     private val dataList = mutableListOf<WarningData>()
 
@@ -58,7 +57,7 @@ class WarningListActivity : ComponentActivity() {
             // 处理点击事件
             Toast.makeText(this, "点击了：${clickedItem.modelName}", Toast.LENGTH_SHORT).show()
             // 跳转到详情页示例
-            startActivity(Intent(this, MainActivity::class.java).apply {
+            startActivity(Intent(this, WarningDetailActivity::class.java).apply {
                 putExtra("DETAIL_DATA", clickedItem)
             })
         }
@@ -93,4 +92,8 @@ class WarningListActivity : ComponentActivity() {
             }
         }
     }
+
+
+
+
 }
