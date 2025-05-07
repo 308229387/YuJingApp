@@ -2,38 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white">
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/web_container"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/white">
+        android:layout_height="match_parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="智能预警数据"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginLeft="16sp"/>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_grey">
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
 
 
 </LinearLayout>

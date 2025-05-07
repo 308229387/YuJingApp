@@ -19,6 +19,7 @@ class WarningViewModel : ViewModel() {
 
     // 对外暴露 LiveData（只读）
     val warningListLiveData: LiveData<NetworkResult<List<WarningData>>> = _warningListLiveData
+    val warningDetailLiveData: LiveData<NetworkResult<WarningDetail>> = _warningDetailLiveData
 
     fun warningList(code: String, phone: String) {
         viewModelScope.launch {

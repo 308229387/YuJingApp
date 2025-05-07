@@ -80,9 +80,16 @@ class ItemAdapter(
         holder.tvTitle.text = item.modelName
         holder.tvTime.text = item.takeTime
         holder.tvLocation.text = item.address
-        Glide.with(holder.itemView.context)
-            .load(R.drawable.ic_launcher_background)
-            .into(holder.tvImage)
+        if(item.type == 122){
+            Glide.with(holder.itemView.context)
+                .load(R.mipmap.img_tupian)
+                .into(holder.tvImage)
+        }else{
+            Glide.with(holder.itemView.context)
+                .load(item.targetSceneWithBox)
+                .into(holder.tvImage)
+        }
+
     }
 
     override fun getItemCount(): Int = items.size

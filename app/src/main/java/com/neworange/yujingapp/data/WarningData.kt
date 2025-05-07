@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class WarningData(
-    val id: Long,
+    val id: Int,
     val type: Int?,
     val takeTime: String,
     val cameraId: String,
