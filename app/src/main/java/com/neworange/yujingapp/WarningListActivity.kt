@@ -18,6 +18,7 @@ class WarningListActivity : ComponentActivity() {
     private lateinit var viewModel: WarningViewModel
     private lateinit var adapter: ItemAdapter
     private val dataList = mutableListOf<WarningData>()
+    private var backPressedTime: Long = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +56,6 @@ class WarningListActivity : ComponentActivity() {
         // 初始化 Adapter 并设置点击事件
         adapter = ItemAdapter(dataList) { clickedItem ->
             // 处理点击事件
-            Toast.makeText(this, "点击了：${clickedItem.modelName}", Toast.LENGTH_SHORT).show()
             // 跳转到详情页示例
             startActivity(Intent(this, WarningDetailActivity::class.java).apply {
                 putExtra("DETAIL_DATA", clickedItem)
@@ -80,7 +80,6 @@ class WarningListActivity : ComponentActivity() {
                     // 处理成功数据
                     val warningList = result.data
                     adapter.updateData(warningList)
-                    Toast.makeText(this, result.data.toString(), Toast.LENGTH_SHORT).show()
                 }
 
                 is NetworkResult.Error -> {
@@ -90,6 +89,18 @@ class WarningListActivity : ComponentActivity() {
 
                 else -> {}
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - backPressedTime < 2000) {
+            super.onBackPressed()
+            finish()
+        } else {
+            // 第一次按下或超时后，更新记录时间并提示用户
+            backPressedTime = currentTime
+            Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show()
         }
     }
 

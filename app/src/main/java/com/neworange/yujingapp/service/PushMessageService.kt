@@ -9,6 +9,7 @@ import cn.jpush.android.api.JPushInterface
 import cn.jpush.android.api.NotificationMessage
 import cn.jpush.android.service.JPushMessageReceiver
 import com.neworange.yujingapp.LoginActivity
+import com.neworange.yujingapp.WarningListActivity
 
 class PushMessageService : JPushMessageReceiver() {
     var TAG: String = "PushMessageService"
@@ -24,7 +25,7 @@ class PushMessageService : JPushMessageReceiver() {
         Log.e(TAG, "[onNotifyMessageOpened] $message")
         try {
             //打开自定义的Activity
-            val i = Intent(context, LoginActivity::class.java)
+            val i = Intent(context, WarningListActivity::class.java)
             val bundle = Bundle()
             bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE, message.notificationTitle)
             bundle.putString(JPushInterface.EXTRA_ALERT, message.notificationContent)

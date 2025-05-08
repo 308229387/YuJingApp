@@ -56,8 +56,8 @@ class LoginActivity : ComponentActivity() {
         viewModel.userInfoLiveData.observe(this) { result ->
             when (result) {
                 is NetworkResult.Success -> {
-                    Toast.makeText(this, result.data.token, Toast.LENGTH_SHORT).show()
                     SPManager.put("code", result.data.code)
+                    SPManager.put("jpush", result.data.jpushId)
 
                     // 用户登录成功后调用
                     val sequence = (System.currentTimeMillis() % 10000).toInt() // 生成唯一请求序列号
@@ -70,6 +70,7 @@ class LoginActivity : ComponentActivity() {
 
                     val intent = Intent(this, WarningListActivity::class.java)
                     startActivity(intent)
+
                     finish()
                 }
 
