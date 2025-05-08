@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.neworange.yujingapp.adapter.ItemAdapter
+import com.neworange.yujingapp.data.AppConstants
 import com.neworange.yujingapp.data.WarningData
 import com.neworange.yujingapp.net.NetworkResult
 import com.neworange.yujingapp.utils.SPManager
@@ -34,10 +35,11 @@ class WarningListActivity : ComponentActivity() {
         // 初始化 ViewModel
         viewModel = ViewModelProvider(this).get(WarningViewModel::class.java)
         SPManager.init(this)
-        val code = SPManager.get<String>("code", "")
+        val code = SPManager.get(AppConstants.CODE, "")
+        val phone = SPManager.get(AppConstants.PHONE,"")
 
         // 调用方法（示例：传入手机号）
-        viewModel.warningList(code, "18519266665")
+        viewModel.warningList(code, phone)
 
         // 观察数据变化
         observeData()
@@ -83,6 +85,10 @@ class WarningListActivity : ComponentActivity() {
                 }
 
                 is NetworkResult.Error -> {
+                    if(result.code==401){
+                        SPManager.clear()
+                        startActivity(Intent(this,LoginActivity::class.java))
+                    }
                     // 处理错误
 //                    showError(result.message)
                 }

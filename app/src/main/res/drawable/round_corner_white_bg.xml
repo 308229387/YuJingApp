@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/round_corner_blue_bg.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 设置圆角半径（单位可调整） -->
+    <corners android:radius="25dp" />
+    <!-- 背景颜色保持与原有一致 -->
+    <solid android:color="@color/blue" />
+</shape>

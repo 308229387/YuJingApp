@@ -6,32 +6,53 @@
     android:orientation="vertical"
     android:padding="24dp"> <!-- 圆角背景 -->
 
-    <!-- 手机号输入框 -->
-    <EditText
-        android:id="@+id/et_phone"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:background="#F2F8FF"
-        android:hint="手机号"
-        android:inputType="phone" />
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
 
-    <!-- 密码输入框 -->
-    <EditText
-        android:id="@+id/et_password"
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F2F8FF"
+            android:drawableLeft="@mipmap/img_shoujihao"
+            android:drawablePadding="20dp"
+            android:hint="手机号"
+            android:inputType="phone"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#F2F8FF"
         android:layout_marginTop="16dp"
-        android:hint="密码"
-        android:inputType="textPassword" />
+        android:background="#F2F8FF"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableLeft="@mipmap/img_mima"
+            android:drawablePadding="20dp"
+            android:background="#F2F8FF"
+            android:textSize="14sp"
+            android:hint="密码"
+            android:inputType="textPassword" />
+    </LinearLayout>
 
     <!-- 忘记密码 -->
     <TextView
         android:id="@+id/tv_forget_password"
         android:layout_width="wrap_content"
-        android:layout_gravity="end"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
         android:layout_marginTop="16dp"
         android:text="忘记密码？"
         android:textColor="@color/blue" />
@@ -42,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/round_corner_white_bg"
         android:backgroundTint="@color/blue"
         android:text="登录"
         android:textColor="@color/white" />
@@ -52,6 +74,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:textColor="#A6A6A6"
+        android:button="@drawable/checkbox_circle_selector"
+        android:paddingStart="10dp"
         android:text="我已同意使用协议" />
 
 </LinearLayout>

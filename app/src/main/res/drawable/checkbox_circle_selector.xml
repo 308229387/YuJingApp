@@ -1,0 +1,41 @@
+<!-- res/drawable/checkbox_circle_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 未选中状态：灰色空心圆 -->
+    <item android:state_checked="false">
+        <shape android:shape="oval">
+            <stroke
+                android:width="2dp"
+                android:color="#AAAAAA"/>
+            <solid
+                android:color="@android:color/transparent"/>
+            <size
+                android:width="17dp"
+                android:height="17dp"/>
+        </shape>
+    </item>
+
+    <item android:state_checked="true">
+        <layer-list>
+            <!-- 外层圆环 -->
+            <item>
+                <shape android:shape="oval">
+                    <stroke
+                        android:width="2dp"
+                        android:color="@color/blue" /> <!-- 选中时圆环颜色 -->
+                </shape>
+            </item>
+            <!-- 内层勾号 -->
+            <item android:gravity="center">
+                <vector android:width="17dp"
+                    android:height="17dp"
+                    android:viewportWidth="24"
+                    android:viewportHeight="24">
+                    <path
+                        android:fillColor="@color/blue"
+                        android:pathData="M9,16.17L4.83,12l-1.42,1.41L9,19 21,7l-1.41,-1.41z"/>
+                </vector>
+            </item>
+
+        </layer-list>
+    </item>
+</selector>

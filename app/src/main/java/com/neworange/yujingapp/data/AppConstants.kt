@@ -6,8 +6,9 @@ object AppConstants {
     const val DEFAULT_TIMEOUT = 15L // 秒
 
     // SharedPreferences 键名
-    const val PREFS_TOKEN_KEY = "user_auth_token"
-    const val PREFS_USER_ID = "user_id"
+    const val PHONE = "phone"
+    const val CODE = "code"
+    const val JPUSH = "jpush"
 //
 //    // 请求码
 //    const val REQUEST_IMAGE_PICK = 1001

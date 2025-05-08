@@ -27,6 +27,7 @@ import cn.jpush.android.api.JPushInterface
 import cn.jpush.android.api.TagAliasCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.neworange.yujingapp.data.AppConstants
 import com.neworange.yujingapp.net.NetworkResult
 import com.neworange.yujingapp.utils.SPManager
 import com.neworange.yujingapp.viewModel.UserViewModel
@@ -56,8 +57,9 @@ class LoginActivity : ComponentActivity() {
         viewModel.userInfoLiveData.observe(this) { result ->
             when (result) {
                 is NetworkResult.Success -> {
-                    SPManager.put("code", result.data.code)
-                    SPManager.put("jpush", result.data.jpushId)
+                    SPManager.put(AppConstants.CODE, result.data.code)
+                    SPManager.put(AppConstants.JPUSH, result.data.jpushId)
+                    SPManager.put(AppConstants.PHONE, result.data.phone)
 
                     // 用户登录成功后调用
                     val sequence = (System.currentTimeMillis() % 10000).toInt() // 生成唯一请求序列号
@@ -89,10 +91,10 @@ class LoginActivity : ComponentActivity() {
 
         loginBtn = findViewById(R.id.login_btn)
         loginBtn.setOnClickListener { v: View? ->
-//            if (phone.isNotBlank()) {
-//                viewModel.fetchUserInfo(phone)
-//            }
-            viewModel.fetchUserInfo("18519266665")
+            if (phone.isNotBlank()) {
+                viewModel.fetchUserInfo(phone)
+            }
+//            viewModel.fetchUserInfo("18519266665")
         }
     }
 
