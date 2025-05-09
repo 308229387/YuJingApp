@@ -2,6 +2,7 @@ package com.neworange.yujingapp
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -35,6 +36,7 @@ import com.neworange.yujingapp.viewModel.UserViewModel
 class LoginActivity : ComponentActivity() {
     private var backPressedTime: Long = 0
     lateinit var loginBtn: TextView
+    lateinit var passwordBtn: TextView
     lateinit var viewModel: UserViewModel
     var phone: String = ""
 
@@ -45,6 +47,7 @@ class LoginActivity : ComponentActivity() {
     }
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -93,7 +96,15 @@ class LoginActivity : ComponentActivity() {
         loginBtn.setOnClickListener { v: View? ->
             if (phone.isNotBlank()) {
                 viewModel.fetchUserInfo(phone)
+            }else{
+                Toast.makeText(this, "无法获取号码，请使用账号密码登录", Toast.LENGTH_SHORT).show()
             }
+//            viewModel.fetchUserInfo("18519266665")
+        }
+
+        passwordBtn = findViewById(R.id.password_text)
+        passwordBtn.setOnClickListener { v: View? ->
+            showLoginDialog(this)
 //            viewModel.fetchUserInfo("18519266665")
         }
     }
@@ -215,6 +226,12 @@ class LoginActivity : ComponentActivity() {
                 // 输入验证
                 val phone = etPhone?.text?.toString()?.trim() ?: ""
                 val password = etPassword?.text?.toString()?.trim() ?: ""
+                if(phone.isEmpty()){
+                    Toast.makeText(context, "手机号不能为空", Toast.LENGTH_SHORT).show()
+                }
+                if(password.isEmpty()){
+                    Toast.makeText(context, "密码不能为空", Toast.LENGTH_SHORT).show()
+                }
 
                 viewModel.loginWithPassword(phone, password)
 

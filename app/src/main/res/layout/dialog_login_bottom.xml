@@ -47,36 +47,17 @@
             android:inputType="textPassword" />
     </LinearLayout>
 
-    <!-- 忘记密码 -->
-    <TextView
-        android:id="@+id/tv_forget_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="16dp"
-        android:text="忘记密码？"
-        android:textColor="@color/blue" />
 
     <!-- 登录按钮 -->
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/round_corner_white_bg"
         android:backgroundTint="@color/blue"
         android:text="登录"
         android:textColor="@color/white" />
 
-    <!-- 协议勾选 -->
-    <CheckBox
-        android:id="@+id/cb_agree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textColor="#A6A6A6"
-        android:button="@drawable/checkbox_circle_selector"
-        android:paddingStart="10dp"
-        android:text="我已同意使用协议" />
 
 </LinearLayout>
