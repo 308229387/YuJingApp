@@ -2,12 +2,14 @@ package com.neworange.yujingapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.jpush.android.api.JPushInterface
 import com.neworange.yujingapp.adapter.ItemAdapter
 import com.neworange.yujingapp.data.AppConstants
 import com.neworange.yujingapp.data.WarningData
@@ -18,6 +20,8 @@ import com.neworange.yujingapp.viewModel.WarningViewModel
 class WarningListActivity : ComponentActivity() {
     private lateinit var viewModel: WarningViewModel
     private lateinit var adapter: ItemAdapter
+    private lateinit var code:String
+    private lateinit var phone:String
     private val dataList = mutableListOf<WarningData>()
     private var backPressedTime: Long = 0
 
@@ -27,7 +31,6 @@ class WarningListActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_warning_list)
 
-
         // 初始化 RecyclerView
         setupRecyclerView()
 
@@ -35,8 +38,9 @@ class WarningListActivity : ComponentActivity() {
         // 初始化 ViewModel
         viewModel = ViewModelProvider(this).get(WarningViewModel::class.java)
         SPManager.init(this)
-        val code = SPManager.get(AppConstants.CODE, "")
-        val phone = SPManager.get(AppConstants.PHONE,"")
+        code = SPManager.get(AppConstants.CODE, "")
+        phone = SPManager.get(AppConstants.PHONE,"")
+
 
         // 调用方法（示例：传入手机号）
         viewModel.warningList(code, phone)
@@ -69,6 +73,20 @@ class WarningListActivity : ComponentActivity() {
 
         recyclerView.adapter = adapter
     }
+
+    override fun onNewIntent(intent1: Intent?) {
+        super.onNewIntent(intent1)
+        Log.i("song_test","执行了onNewIntent方法")
+        val bundle = intent1!!.extras
+        bundle?.let {
+            val data = it.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE, "")
+            if(data.isNotEmpty()){
+                Log.i("song_test","接收到intent信息 = "+data)
+                viewModel.warningList(code, phone)
+            }
+        }
+    }
+
 
 
     private fun observeData() {

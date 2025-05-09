@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.webkit.WebSettings
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import com.google.gson.Gson
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
+import com.neworange.yujingapp.data.AppConstants
 import com.neworange.yujingapp.data.WarningData
 import com.neworange.yujingapp.utils.SPManager
 import com.neworange.yujingapp.viewModel.WarningViewModel
@@ -31,14 +33,14 @@ class WarningDetailActivity : ComponentActivity() {
 
         val clickedItem = intent.getSerializableExtra("DETAIL_DATA") as? WarningData
         SPManager.init(this)
-        code = SPManager.get<String>("code", "")
+        code = SPManager.get<String>(AppConstants.CODE, "")
         type = if (clickedItem!!.type == 122) {
             "audio"
         } else {
             "video"
         }
 
-        val uuidStr: String = clickedItem?.uuid ?: ""
+        val uuidStr: String = ("&uuid=" + clickedItem?.uuid) ?: ""
 
 
         var url = "https://www.neworangegroup.com/play/index.html?id=" + clickedItem.id + "&code=" + code + "&type=" + type + uuidStr

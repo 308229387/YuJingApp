@@ -1,5 +1,6 @@
 package com.neworange.yujingapp.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.neworange.yujingapp.R
+import com.neworange.yujingapp.data.AppConstants
 import com.neworange.yujingapp.data.WarningData
+import com.neworange.yujingapp.utils.SPManager
 
 class ItemAdapter(
     // 关键修改1：将参数改为可变集合
@@ -85,8 +88,10 @@ class ItemAdapter(
                 .load(R.mipmap.img_tupian)
                 .into(holder.tvImage)
         }else{
+           val str = "https://www.neworangegroup.com/"+AppConstants.API_PORT+"/"+SPManager.get(AppConstants.CODE,"")+item.targetSceneWithBox
+            Log.i("song_test", "图片地址为：$str")
             Glide.with(holder.itemView.context)
-                .load(item.targetSceneWithBox)
+                .load(str)
                 .into(holder.tvImage)
         }
 

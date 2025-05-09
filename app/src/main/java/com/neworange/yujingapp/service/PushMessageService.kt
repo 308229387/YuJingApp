@@ -27,6 +27,8 @@ class PushMessageService : JPushMessageReceiver() {
             //打开自定义的Activity
             val i = Intent(context, WarningListActivity::class.java)
             val bundle = Bundle()
+            Log.i("song_text","onNotifyMessageOpened tag = "+JPushInterface.EXTRA_NOTIFICATION_TITLE)
+            Log.i("song_text","onNotifyMessageOpened title = "+message.notificationTitle)
             bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE, message.notificationTitle)
             bundle.putString(JPushInterface.EXTRA_ALERT, message.notificationContent)
             i.putExtras(bundle)
